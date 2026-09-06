@@ -49,6 +49,9 @@ function Freezer.sv_init( self )
 
     self.sv.world = self.shape.body:getWorld()
     self.sv.loaded = true
+    -- Cache storage connected through the new bottom pipe input.
+    self.inputContainers = sm.pipeGraph.getInputContainers( self.shape )
+    self.itemPullTimer = 0
     self:sv_updateProgress()
 end
 
@@ -71,6 +74,28 @@ function Freezer.server_onDestroy( self )
             sm.projectile.customProjectileAttack( projectileParams, projectile_loot, 0, projectilePosition, projectileDirection * 4, self.sv.world )
         end
         self.sv.loaded = false
+    end
+end
+
+function Freezer.pullItem( self, uuid )
+    -- Move one water item from a connected container into the Freezer's local container.
+    if self.inputContainers == nil or not sm.container.canCollect( self.sv.container, uuid, 1 ) then
+        return
+    end
+    for _, containerShape in ipairs( self.inputContainers ) do
+        local sourceContainer = containerShape:getInteractable():getContainer()
+        if sourceContainer then
+            for slot = 0, sourceContainer:getSize() - 1 do
+                local item = sourceContainer:getItem( slot )
+                if item and item.quantity > 0 and item.uuid == uuid then
+                    sm.container.beginTransaction()
+                    sm.container.collect( self.sv.container, item.uuid, 1, true )
+                    sm.container.spend( sourceContainer, item.uuid, 1, true )
+                    sm.container.endTransaction()
+                    return
+                end
+            end
+        end
     end
 end
 
@@ -144,7 +169,18 @@ function Freezer.sv_updateProgress( self )
     self:sv_setClientData()
 end
 
-function Freezer.server_onReceiveUpdate( self )
+function Freezer.server_onFixedUpdate( self, timeStep )
+    -- Refresh the pipe list after movement and pull water periodically from connected storage.
+    if self.shape:getBody():hasChanged( sm.game.getCurrentTick() - 1 ) then
+        self.inputContainers = sm.pipeGraph.getInputContainers( self.shape )
+    end
+    if self.itemPullTimer > 0 then
+        self.itemPullTimer = self.itemPullTimer - timeStep
+    end
+    if self.itemPullTimer <= 0 then
+        self.itemPullTimer = 1
+        self:pullItem( obj_consumable_water )
+    end
     self:sv_updateProgress()
 end
 
