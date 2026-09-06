@@ -43,9 +43,9 @@ function InteractableBeehive.sv_init( self )
     self.sv.loaded = true
     self.sv.debugState = nil
     self.sv.debugFixedUpdateLogged = false
-    local nearbyFilter = sm.areaTrigger.filter.staticBody + sm.areaTrigger.filter.dynamicBody
-    self.sv.inputTrigger = sm.areaTrigger.createAttachedBox( self.shape, sm.vec3.new( 2.8, 0.8, 2.8 ), sm.vec3.new( 0, -2.0, 0 ), sm.quat.identity(), nearbyFilter )
-    self.sv.inputTrigger:setIncludeShapesInContent( true )
+    -- Cache only storage connected through the pipe graph.
+    self.inputContainers = sm.pipeGraph.getInputContainers( self.shape )
+    self.itemPullTimer = 0
     -- print( "[Beehive] initialized, input pipe count: " .. #sm.pipeGraph.getInputContainers( self.shape ) )
     -- Perform an initial check when the Beehive is placed or loaded.
     self:sv_updateProgress()
@@ -57,39 +57,7 @@ function InteractableBeehive.server_onUnload( self )
 	end
 end
 
-function InteractableBeehive.sv_getAdjacentFlowerContainer( self )
-    if not self.sv.inputTrigger then
-        return nil
-    end
-    for _, nearbyShape in ipairs( self.sv.inputTrigger:getContents() ) do
-        if sm.exists( nearbyShape ) and nearbyShape ~= self.shape then
-            local container = nil
-            local shapeLookupSucceeded, shapeContainer = pcall( function()
-                return nearbyShape:getInteractable():getContainer( 0 )
-            end )
-            if shapeLookupSucceeded then
-                container = shapeContainer
-            else
-                local interactableLookupSucceeded, interactableContainer = pcall( function()
-                    return nearbyShape:getContainer( 0 )
-                end )
-                if interactableLookupSucceeded then
-                    container = interactableContainer
-                end
-            end
-            if container and sm.container.canSpend( container, obj_resource_flower, NumConsumed ) then
-                -- print( "[Beehive] using adjacent shape container fallback" )
-                return container
-            end
-        end
-    end
-    return nil
-end
-
 function InteractableBeehive.server_onDestroy( self )
-    if self.sv.inputTrigger and sm.exists( self.sv.inputTrigger ) then
-        self.sv.inputTrigger:destroy()
-    end
     if self.sv.loaded and self.sv.saved.beewax > 0 and self.position and self.rotation then
         local stackSize = sm.item.getStackSize( ITEMS.obj_resource_beewax )
         while self.sv.saved.beewax > 0 do
@@ -102,6 +70,31 @@ function InteractableBeehive.server_onDestroy( self )
             sm.projectile.customProjectileAttack( projectileParams, projectile_loot, 0, projectilePosition, projectileDirection * 4, self.sv.world )
         end
         self.sv.loaded = false
+    end
+end
+
+function InteractableBeehive.pullItem( self, uuid )
+    -- Move one valid flower from a connected input chest into the Beehive container.
+    if self.inputContainers == nil or not sm.container.canCollect( self.sv.container, uuid, 1 ) then
+        return
+    end
+
+    for _, containerShape in ipairs( self.inputContainers ) do
+        local container = containerShape:getInteractable():getContainer()
+        if container then
+            for slot = 0, container:getSize() - 1 do
+                local item = container:getItem( slot )
+                if item and item.quantity > 0 and item.uuid == uuid then
+                    sm.container.beginTransaction()
+                    sm.container.collect( self.sv.container, item.uuid, 1, true )
+                    sm.container.spend( container, item.uuid, 1, true )
+                    if sm.container.endTransaction() then
+                        -- print( "[Beehive] pulled pigment from connected container" )
+                    end
+                    return
+                end
+            end
+        end
     end
 end
 
@@ -144,16 +137,7 @@ function InteractableBeehive.sv_getFlowerContainer( self )
         end
     end
 
-    -- Fallback for a Beehive placed directly on a chest when the pipe graph has not registered the endpoint.
-    for _, neighbour in ipairs( self.shape:getPipedNeighbours() ) do
-        local container = neighbour:getInteractable():getContainer( 0 )
-        if container and sm.container.canSpend( container, obj_resource_flower, NumConsumed ) then
-            -- print( "[Beehive] using adjacent piped container fallback" )
-            return container
-        end
-    end
-
-    return self:sv_getAdjacentFlowerContainer()
+    return nil
 end
 
 function InteractableBeehive.sv_canSpendFlower( self )
@@ -235,7 +219,18 @@ function InteractableBeehive.sv_updateProgress( self )
 end
 
 function InteractableBeehive.server_onFixedUpdate( self, timeStep )
+    -- Refresh pipe inputs after movement and pull pigment from connected storage.
     -- Run after the pipe graph is initialized so a newly placed chest connection is detected.
+    if self.shape:getBody():hasChanged( sm.game.getCurrentTick() - 1 ) then
+        self.inputContainers = sm.pipeGraph.getInputContainers( self.shape )
+    end
+    if self.itemPullTimer > 0 then
+        self.itemPullTimer = self.itemPullTimer - timeStep
+    end
+    if self.itemPullTimer <= 0 then
+        self.itemPullTimer = 1
+        self:pullItem( obj_resource_flower )
+    end
     if not self.sv.debugFixedUpdateLogged then
         self.sv.debugFixedUpdateLogged = true
         -- print( "[Beehive] server fixed update is running" )
