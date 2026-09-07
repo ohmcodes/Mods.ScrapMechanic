@@ -161,6 +161,8 @@ function InteractableBeehive.sv_updateProgress( self )
 	local elapsedTicks = currentTick - self.sv.saved.lastTickUpdate
 	elapsedTicks = math.max( elapsedTicks, 0 )
 	self.sv.saved.lastTickUpdate = currentTick
+    -- Prevent time spent unloaded or blocked from creating an instant catch-up burst.
+    elapsedTicks = math.min( elapsedTicks, ProduceTickTime )
 
     local container = self.shape:getInteractable():getContainer(0)
     if not container then
@@ -191,10 +193,13 @@ function InteractableBeehive.sv_updateProgress( self )
             -- print( "[Beehive] consumed pigment flower, production completed" )
         else
             sm.container.abortTransaction()
+            self.sv.saved.progress = 0
             -- print( "[Beehive] pigment transaction failed, remaining amount: " .. remainingAmount )
         end
     else
         sm.container.abortTransaction()
+        -- Do not retain progress when production cannot currently consume a flower.
+        self.sv.saved.progress = 0
     end
 
     local hasFlower = self:sv_canSpendFlower()
