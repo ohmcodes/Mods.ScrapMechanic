@@ -1,0 +1,50 @@
+{
+	"lodList" :
+	[
+		{
+			"mesh" : "$SURVIVAL_DATA/Effects/Meshes/totebot_seedbot/eff_char_seedbot_crate02.fbx",
+			"subMeshMap" :
+			{
+				"carrotcrate" :
+				{
+					"material" : "DifAsg",
+					"textureList" :
+					[
+						"$SURVIVAL_DATA/Objects/Textures/containers/obj_containers_corncrate_dif.tga",
+						"$SURVIVAL_DATA/Objects/Textures/containers/obj_containers_chilicrate_asg.tga"
+					]
+				},
+				"crate" :
+				{
+					"material" : "DifAsgNor",
+					"textureList" :
+					[
+						"$SURVIVAL_DATA/Objects/Textures/containers/obj_containers_crate_dif.tga",
+						"$SURVIVAL_DATA/Objects/Textures/containers/obj_containers_crate_asg.tga",
+						"$SURVIVAL_DATA/Objects/Textures/containers/obj_containers_crate_nor.tga"
+					]
+				},
+				"seed_tag" :
+				{
+					"material" : "DifAsgNor",
+					"textureList" :
+					[
+						"$SURVIVAL_DATA/Objects/Textures/consumable/obj_seed_tag_dif.tga",
+						"$SURVIVAL_DATA/Objects/Textures/consumable/obj_seed_tag_asg.tga",
+						"$SURVIVAL_DATA/Objects/Textures/consumable/obj_seed_tag_nor.tga"
+					]
+				},
+				"seed_texture" :
+				{
+					"material" : "DifAsgNor",
+					"textureList" :
+					[
+						"$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_corn_dif.tga",
+						"$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_asg.tga",
+						"$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_nor.tga"
+					]
+				}
+			}
+		}
+	]
+}

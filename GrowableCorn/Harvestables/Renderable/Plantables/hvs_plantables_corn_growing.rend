@@ -1,0 +1,22 @@
+{
+        "decalReciever" : false,
+        "lodList" : 
+        [
+                {
+                        "mesh" : "$SURVIVAL_DATA/Harvestables/Mesh/Farmables/hvs_farmables_cornplant_broken.fbx",
+                        "subMeshMap" : 
+                        {
+                                "corn_plant" : 
+                                {
+                                        "material" : "Bush",
+                                        "textureList" : 
+                                        [
+                                                "$SURVIVAL_DATA/Harvestables/Textures/Farmables/hvs_farmables_cornplant_dif.tga",
+                                                "$SURVIVAL_DATA/Harvestables/Textures/Farmables/hvs_farmables_cornplant_asg.tga",
+                                                "$SURVIVAL_DATA/Harvestables/Textures/Farmables/hvs_farmables_cornplant_nor.tga"
+                                        ]
+                                }
+                        }
+                }
+        ]
+}

@@ -4,6 +4,8 @@
 
 These changes apply to normal harvestable soil, planted survival crops, and growbeds.
 
+The vacuum also supports ejecting stored corn into the world for Wocs to eat.
+
 ## Updated Files
 
 ### `game/interactables/MountedWaterGun.lua`
@@ -16,6 +18,14 @@ These changes apply to normal harvestable soil, planted survival crops, and grow
 - Blocks water on mature crops.
 - Does the check before the water transaction, so blocked shots do not spend water.
 - Removed the temporary `[MountedWaterGun]` debug print.
+
+### `game/interactables/Vacuum.lua`
+
+- Recognizes `obj_resource_corn` as an outgoing vacuum item.
+- Spends one corn and creates a dynamic `obj_resource_corn` shape at the vacuum nozzle.
+- Uses the same physical-shape approach as force-build/drop-carry instead of creating a loot projectile.
+- The resulting shape is compatible with the Woc's normal edible-item search, allowing automatic feeding systems.
+- Checks the spawn space with a spherecast before spending corn, preventing another corn from being placed while the previous one is blocking the nozzle.
 
 ### `game/harvestable/HarvestableSoil.lua`
 
@@ -52,6 +62,13 @@ These changes apply to normal harvestable soil, planted survival crops, and grow
 | Growing crop, still watered | Water is blocked |
 | Mature crop | Water is blocked |
 | No harvestable hit | Water is allowed, preserving normal gun behavior |
+
+## Corn Ejection
+
+Corn is a resource shape, not a seed. The vacuum uses
+`sm.shape.createPart( obj_resource_corn, ... )`, matching the game's force-build
+and drop-carry behavior, so the corn lands in the world as a physical shape that
+Wocs can find and eat.
 
 ## Applying the Changes
 

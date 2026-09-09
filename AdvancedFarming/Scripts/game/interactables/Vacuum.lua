@@ -3,6 +3,7 @@ dofile( "$SURVIVAL_DATA/Scripts/util.lua" )
 dofile( "$SURVIVAL_DATA/Scripts/game/survival_shapes.lua" )
 dofile( "$SURVIVAL_DATA/Scripts/game/util/pipes.lua" )
 dofile( "$SURVIVAL_DATA/Scripts/game/survival_projectiles.lua" )
+dofile( "$SURVIVAL_DATA/Scripts/game/survival_loot.lua" )
 
 ---@class Vacuum : ShapeClass
 ---@field sv table
@@ -37,6 +38,8 @@ local UuidToProjectile = {
 	[tostring( ITEMS.obj_consumable_fertilizer )] = { uuid = projectile_fertilizer },
 	[tostring( ITEMS.obj_consumable_chemical )] = { uuid = projectile_chemical },
 	[tostring( ITEMS.obj_resource_crudeoil )] = { uuid = projectile_oil },
+	-- Corn is a world pickup, so eject it through the normal loot projectile path.
+	[tostring( ITEMS.obj_resource_corn )] = { uuid = projectile_loot, loot = true },
 
 	[tostring( ITEMS.obj_plantables_banana )] = { uuid = projectile_banana },
 	[tostring( ITEMS.obj_plantables_blueberry )] = { uuid = projectile_blueberry },
@@ -145,6 +148,25 @@ function Vacuum.canFireSoilItem( self, itemUuid )
     end
 
     return true
+end
+
+function Vacuum.getCornSpawnPosition( self )
+	return self.shape:getWorldPosition() - self.shape.at * 0.75
+end
+
+function Vacuum.canSpawnCorn( self )
+	local spawnPosition = self:getCornSpawnPosition()
+	local checkStart = spawnPosition + self.shape.at * 0.5
+	local checkStop = spawnPosition - self.shape.at * 0.5
+	local blocked, result = sm.physics.spherecast(
+		checkStart,
+		checkStop,
+		0.5,
+		self.shape,
+		sm.physics.filter.dynamicBody
+	)
+
+	return not blocked, result
 end
 
 local function ValidatePackingStationInteraction( self )
@@ -513,13 +535,21 @@ function Vacuum.server_onFixedUpdate( self )
 				not IsSoilItem( self.sv.foundItem )
 				or interfacingWithPackingStation
 				or self:canFireSoilItem( self.sv.foundItem )
+				local canSpawnCorn = true
+				if projectile and projectile.loot then
+					canSpawnCorn = self:canSpawnCorn()
+				end
 
-				if projectile and self.sv.foundContainer and canFireSoilItem then
+				if projectile and self.sv.foundContainer and canFireSoilItem and canSpawnCorn then
 					sm.container.beginTransaction()
 					sm.container.spend( self.sv.foundContainer:getInteractable():getContainer(), self.sv.foundItem, 1, true )
 					if sm.container.endTransaction() then
 						-- If successful spend, fire an projectile
-						if projectile.hvs or projectile.growbed then
+						if projectile.loot then
+							-- Corn is a physical edible shape; force-build/drop uses createPart rather than loot projectiles.
+							local spawnPosition = self:getCornSpawnPosition()
+							sm.shape.createPart( self.sv.foundItem, spawnPosition, sm.quat.identity(), true, true )
+						elseif projectile.hvs or projectile.growbed then
 							sm.projectile.shapeCustomProjectileAttack(
 								{ hvs = projectile.hvs, growbed = projectile.growbed, seed = self.sv.foundItem },
 								projectile.uuid,
@@ -537,7 +567,7 @@ function Vacuum.server_onFixedUpdate( self )
 						self.network:sendToClients( "cl_n_onOutgoingFire" )
 					end
 					self:server_outgoingReset()
-				elseif projectile and self.sv.foundContainer and not canFireSoilItem then
+				elseif projectile and self.sv.foundContainer and (not canFireSoilItem or not canSpawnCorn) then
     				self:setVacuumState( PipeState.invalid )
 				elseif valid then
 					sm.container.beginTransaction()

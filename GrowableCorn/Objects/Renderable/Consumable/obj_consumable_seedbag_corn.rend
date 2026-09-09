@@ -1,0 +1,58 @@
+{
+        "lodList" : 
+        [
+                {
+                        "mesh" : "$SURVIVAL_DATA/Objects/Mesh/consumable/obj_consumable_seed.fbx",
+                        "minViewSize" : 50,
+                        "subMeshMap" : 
+                        {
+                                "seed_tag" : 
+                                {
+                                        "material" : "DifAsgNor",
+                                        "textureList" : 
+                                        [
+                                                "$SURVIVAL_DATA/Objects/Textures/consumable/obj_seed_tag_dif.tga",
+                                                "$SURVIVAL_DATA/Objects/Textures/consumable/obj_seed_tag_asg.tga",
+                                                "$SURVIVAL_DATA/Objects/Textures/consumable/obj_seed_tag_nor.tga"
+                                        ]
+                                },
+                                "seed_texture" : 
+                                {
+                                        "custom" : { "color" : "Color" },
+                                        "material" : "DifAsgNor",
+                                        "textureList" : 
+                                        [
+                                                "$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_corn_dif.tga",
+                                                "$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_asg.tga",
+                                                "$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_nor.tga"
+                                        ]
+                                }
+                        }
+                },
+                {
+                        "mesh" : "$SURVIVAL_DATA/Objects/Mesh/consumable/obj_consumable_seed_lod1.fbx",
+                        "minViewSize" : 20,
+                        "subMeshMap" :
+                        {
+                                "seed_texture" :
+                                {
+                                        "custom" : { "color" : "Color" },
+                                        "material" : "DifAsgNor",
+                                        "textureList" : [ "$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_corn_dif.tga" ]
+                                }
+                        }
+                },
+                {
+                        "mesh" : "$SURVIVAL_DATA/Objects/Mesh/consumable/obj_consumable_seed_lod2.fbx",
+                        "subMeshMap" :
+                        {
+                                "seed_texture" :
+                                {
+                                        "custom" : { "color" : "Color" },
+                                        "material" : "Dif",
+                                        "textureList" : [ "$SURVIVAL_DATA/Objects/Textures/consumable/obj_consumable_seedbag_corn_dif.tga" ]
+                                }
+                        }
+                }
+        ]
+}

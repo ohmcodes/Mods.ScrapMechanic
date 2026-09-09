@@ -1,0 +1,439 @@
+{
+	"Seedbot - Crate_banana" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_bananacrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.513726,
+					0.65098,
+					0.2,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_blueberry" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_blueberry.rend"
+				],
+				"renderableColor" : 
+				[
+					0.364706,
+					0.254902,
+					0.85098,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_broccoli" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_broccolicrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.192157,
+					0.533333,
+					0.043137,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_carrot" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_carrotcrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.247,
+					0.478,
+					0.737,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_chilli" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_chillicrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.913726,
+					0.768628,
+					0.062745,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_cotton" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_cottoncrate.rend"
+				],
+				"renderableColor" : 
+				[
+					1.0,
+					0.447059,
+					0.733333,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_orange" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_orangecrate.rend"
+				],
+				"renderableColor" : 
+				[
+					1.0,
+					0.678431,
+					0.121569,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_pigmentflower" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_pigmentflowercrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.129412,
+					0.717647,
+					0.733333,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_pineapplecrate" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_pineapplecrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.913726,
+					0.92549,
+					0.054902,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_potato" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_potatocrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.321569,
+					0.4,
+					0.180392,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_redbeet" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_redbeetcrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.65098,
+					0.152941,
+					0.301961,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_corn" :
+	{
+		"effectList" :
+		[
+			{
+				"offset" : [ 0.0, 0.0, 0.0 ],
+				"offsetScale" : [ 0.25, 0.25, 0.25 ],
+				"renderable" :
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_corncrate.rend"
+				],
+				"renderableColor" :
+				[
+					0.545098,
+					0.278431,
+					0.356863,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_tomato" : 
+	{
+		"effectList" : 
+		[
+			{
+				"offset" : 
+				[
+					0.0,
+					0.0,
+					0.0
+				],
+				"offsetScale" : 
+				[
+					0.25,
+					0.25,
+					0.25
+				],
+				"renderable" : 
+				[
+					"$SURVIVAL_DATA/Effects/Renderable/totebot_seedbot/eff_char_seedbot_tomatocrate.rend"
+				],
+				"renderableColor" : 
+				[
+					0.972549,
+					0.023529,
+					0.0,
+					1.0
+				],
+				"type" : "renderable"
+			}
+		]
+	},
+	"Seedbot - Crate_destruction" : 
+	{
+		"effectList" : 
+		[
+			{	
+				"name" : "p_totebot_seedbot_crate_destruct",
+				"delay" : 0.0,
+				"direction" : 
+				{
+					"x" : 0.0,
+					"y" : 1.0,
+					"z" : 0.0
+				},
+				"offset" : 
+				{
+					"x" : 0.0,
+					"y" : 0.0,
+					"z" : 0.0
+				},
+				"type" : "particle"
+			},
+			{
+				"audio" : 
+				[
+					"event:/placeholder/3dOneshot"
+				],
+				"delay" : 0.0,
+				"type" : "audio"
+			}
+		]
+	}
+}
