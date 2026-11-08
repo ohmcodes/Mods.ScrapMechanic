@@ -1,0 +1,58 @@
+{
+	"assetSetList" : 
+	[
+		{
+			"assetSet" : "$GAME_DATA/Terrain/Database/AssetSets/menu.assetset",
+			"categories" : 
+			[
+				"Environment/Special/Menu"
+			],
+			"hidden" : true
+		},
+		{
+			"assetSet" : "$GAME_DATA/Terrain/Database/AssetSets/manmade.assetset",
+			"categories" : 
+			[
+				"Environment/Classic/Manmade"
+			]
+		},
+		{
+			"assetSet" : "$GAME_DATA/Terrain/Database/AssetSets/forest.assetset",
+			"categories" : 
+			[
+				"Environment/Classic/Forest"
+			]
+		},
+		{
+			"assetSet" : "$GAME_DATA/Terrain/Database/AssetSets/smallstone.assetset",
+			"categories" : 
+			[
+				"NeedsSorting",
+				"Type/Rocks"
+			]
+		},
+		{
+			"assetSet" : "$GAME_DATA/Terrain/Database/AssetSets/rocks.assetset",
+			"categories" : 
+			[
+				"NeedsSorting",
+				"Type/Rocks"
+			]
+		},
+		{
+			"assetSet" : "$GAME_DATA/Terrain/Database/AssetSets/racetrack.assetset",
+			"categories" : 
+			[
+				"Type/Misc"
+			]
+		},
+		{
+			"assetSet" : "$SURVIVAL_DATA/Terrain/Database/AssetSets/Water.assetset",
+			"categories" : 
+			[
+				"Type/Special/Water"
+			],
+			"hidden" : true
+		}
+	]
+}
